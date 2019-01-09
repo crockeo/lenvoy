@@ -8,7 +8,11 @@
 
 ### Building & Running
 
-TODO
+First ensure you have [Docker](https://www.docker.com/) and Docker Compose installed then run:
+
+```sh
+$ docker-compose up
+```
 
 ### License
 

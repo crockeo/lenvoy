@@ -1,0 +1,34 @@
+version: '2'
+services:
+  # Front-end envoy proxy that handles all outward facing traffic.
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    volumes:
+      - ./proxy/envoy.yaml:/etc/envoy.yaml
+    networks:
+      - mesh
+    expose:
+      - "80"
+      - "8001"
+    ports:
+      - "8000:80"
+      - "8001:8001"
+
+  # Internal service, provides some data.
+  service:
+    build:
+      context: ./service
+      dockerfile: Dockerfile
+    volumes:
+      - ./service/envoy.yaml:/etc/envoy.yaml
+    networks:
+      mesh:
+        aliases:
+          - service
+    expose:
+      - "80"
+
+networks:
+  mesh: {}
