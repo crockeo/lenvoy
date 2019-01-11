@@ -30,5 +30,19 @@ services:
     expose:
       - "80"
 
+  # Internal service, provides a back-end key/value store.
+  grpc_service:
+    build:
+      context: ./grpc_service
+      dockerfile: Dockerfile
+    volumes:
+      - ./grpc_service/envoy.yaml:/etc/envoy.yaml
+    networks:
+      mesh:
+        aliases:
+          - grpc_service
+    expose:
+      - "80"
+
 networks:
   mesh: {}
