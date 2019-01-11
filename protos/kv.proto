@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetResponse {
+  string value = 1;
+}
+
+message SetRequest {
+  string key = 1;
+  string value = 2;
+}
+
+message SetResponse {
+  bool success = 1;
+}
+
+service KeyValueStore {
+  rpc get(GetRequest) returns (GetResponse) {};
+  rpc set(SetRequest) returns (SetResponse) {};
+}
