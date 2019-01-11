@@ -36,6 +36,8 @@ services:
       context: ./grpc_service
       dockerfile: Dockerfile
     volumes:
+      - ./gen/kv_pb2.py:/code/kv_pb2.py
+      - ./gen/kv_pb2_grpc.py:/code/kv_pb2_grpc.py
       - ./grpc_service/envoy.yaml:/etc/envoy.yaml
     networks:
       mesh:
