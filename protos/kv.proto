@@ -5,7 +5,8 @@ message GetRequest {
 }
 
 message GetResponse {
-  string value = 1;
+  bool success = 1;
+  string value = 2;
 }
 
 message SetRequest {

@@ -4,8 +4,7 @@ set -e
 
 cd $(dirname $0)/..
 
-echo $(pwd)
-mkdir gen
+mkdir -p gen
 python -m grpc.tools.protoc \
         -I./protos \
         --python_out=./gen \

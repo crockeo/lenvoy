@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08kv.proto\"\x19\n\nGetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"\x1c\n\x0bGetResponse\x12\r\n\x05value\x18\x01 \x01(\t\"(\n\nSetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x1e\n\x0bSetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32W\n\rKeyValueStore\x12\"\n\x03get\x12\x0b.GetRequest\x1a\x0c.GetResponse\"\x00\x12\"\n\x03set\x12\x0b.SetRequest\x1a\x0c.SetResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x08kv.proto\"\x19\n\nGetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"-\n\x0bGetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\r\n\x05value\x18\x02 \x01(\t\"(\n\nSetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x1e\n\x0bSetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32W\n\rKeyValueStore\x12\"\n\x03get\x12\x0b.GetRequest\x1a\x0c.GetResponse\"\x00\x12\"\n\x03set\x12\x0b.SetRequest\x1a\x0c.SetResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -64,8 +64,15 @@ _GETRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='value', full_name='GetResponse.value', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='success', full_name='GetResponse.success', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='GetResponse.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -83,7 +90,7 @@ _GETRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=39,
-  serialized_end=67,
+  serialized_end=84,
 )
 
 
@@ -120,8 +127,8 @@ _SETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=69,
-  serialized_end=109,
+  serialized_start=86,
+  serialized_end=126,
 )
 
 
@@ -151,8 +158,8 @@ _SETRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=111,
-  serialized_end=141,
+  serialized_start=128,
+  serialized_end=158,
 )
 
 DESCRIPTOR.message_types_by_name['GetRequest'] = _GETREQUEST
@@ -197,8 +204,8 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=143,
-  serialized_end=230,
+  serialized_start=160,
+  serialized_end=247,
   methods=[
   _descriptor.MethodDescriptor(
     name='get',
