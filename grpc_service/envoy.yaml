@@ -13,43 +13,31 @@ static_resources:
           route_config:
             name: local_route
             virtual_hosts:
-            - name: backend
+            - name: grpc_service
               domains:
               - "*"
               routes:
               - match:
                   prefix: "/"
+                  grpc: {}
                 route:
-                  cluster: service
-              - match:
-                  prefix: "/grpc"
-                route:
-                  cluster: "grpc_service"
+                  cluster: local_grpc_service
           http_filters:
           - name: envoy.router
             config: {}
   clusters:
-  - name: service
+  - name: local_grpc_service
     connect_timeout: 0.25s
     type: strict_dns
     lb_policy: round_robin
     http2_protocol_options: {}
     hosts:
     - socket_address:
-        address: service
-        port_value: 80
-  - name: grpc_service
-    connect_timeout: 0.25s
-    type: strict_dns
-    lb_policy: round_robin
-    http2_protocol_options: {}
-    hosts:
-    - socket_address:
-        address: grpc_service
+        address: 127.0.0.1
         port_value: 80
 admin:
   access_log_path: "/dev/null"
   address:
     socket_address:
       address: 0.0.0.0
-      port_value: 8001
+      port_value: 8081
