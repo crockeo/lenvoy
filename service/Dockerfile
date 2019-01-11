@@ -1,7 +1,8 @@
-FROM envoyproxy/envoy-alpine:latest
+FROM envoyproxy/envoy:latest
 
-RUN apk update && apk add python3 bash
-RUN pip3 install Flask==1.0.2
+RUN apt-get update
+RUN apt-get -q install -y python-dev python-pip
+RUN pip install flask grpcio protobuf requests
 RUN mkdir /code
 
 ADD ./service.py /code
