@@ -8,7 +8,7 @@ import struct
 app = flask.Flask(__name__)
 
 # Configuration information for the gRPC client.
-HOST = "localhost:8000"
+HOST = "grpc_service:80"
 
 class KeyValueClient():
     def __init__(self, stub):
