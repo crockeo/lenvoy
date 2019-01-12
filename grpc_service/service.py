@@ -15,15 +15,15 @@ class KeyValueStore(kv_pb2_grpc.KeyValueStoreServicer):
         print "get {}".format(request.key)
         with self._lock:
             if request.key in self._store:
-                return kv_pb2.GetResponse(True, self._store[request.key])
+                return kv_pb2.GetResponse(success=True, value=self._store[request.key])
             else:
-                return kv_pb2.GetResponse(False, "")
+                return kv_pb2.GetResponse(success=False, value="")
 
     def set(self, request, context):
         print "set {} = {}".format(request.key, request.value)
         with self._lock:
             self._store[request.key] = request.value
-            return kv_pb2.SetResponse(True)
+            return kv_pb2.SetResponse(success=True)
 
 if __name__ == "__main__":
     port = 8080
