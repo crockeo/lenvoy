@@ -1,57 +1,40 @@
 import flask
+import grpc
 import kv_pb2
+import kv_pb2_grpc
 import requests
 import struct
 
 app = flask.Flask(__name__)
 
 # Configuration information for the gRPC client.
-HOST = "http://localhost:8000/grpc"
-HEADERS = {
-    "Content-Type": "application/grpc",
-    "Host": "grpc"
-}
+HOST = "localhost:8000"
 
 class KeyValueClient():
+    def __init__(self, stub):
+        self._stub = stub
+
     def get(self, key):
         req = kv_pb2.GetRequest(key=key)
-
-        data = req.SerializeToString()
-        data = struct.pack("!cI", b"\0", len(data)) + data
-
-        res = requests.post(
-            HOST + "/kv.KeyValueStore/get",
-            data=data,
-            headers=HEADERS
-        )
-
-        return kv_pb2.GetResponse().FromString(res.contents[5:])
+        return self._stub.get(req)
 
     def set(self, key, value):
         req = kv_pb2.SetRequest(key=key, value=value)
-
-        data = req.SerializeToString()
-        data = struct.pack("!cI", "b\0", len(data)) + data
-
-        res = requests.post(
-            HOST + "/kv.KeyValueStore/set",
-            data=data,
-            headers=HEADERS
-        )
-
-        return kv_pb2.SetResponse().FromString(res.contents[5:])
+        return self._stub.set(req)
 
 @app.route("/")
 def root():
-    client = KeyValueClient()
+    with grpc.insecure_channel(HOST) as channel:
+        stub = kv_pb2_grpc.KeyValueStoreStub(channel)
+        client = KeyValueClient(stub)
 
-    value_raw = client.get("count")
-    if value_raw.success:
-        value = int(value_raw.value)
-    else:
-        value = 0
+        value_raw = client.get("count")
+        if value_raw.success:
+            value = int(value_raw.value)
+        else:
+            value = 0
 
-    client.set("count", str(value + 1))
+        client.set("count", str(value + 1))
 
     return "Hello world, {} times!".format(value)
 
