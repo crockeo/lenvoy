@@ -12,13 +12,15 @@ class KeyValueStore(kv_pb2_grpc.KeyValueStoreServicer):
         self._store = {}
 
     def get(self, request, context):
+        print "get {}".format(request.key)
         with self._lock:
             if request.key in self._store:
                 return kv_pb2.GetResponse(True, self._store[request.key])
             else:
-                return kv_pb2.GetResponse(False, "");
+                return kv_pb2.GetResponse(False, "")
 
     def set(self, request, context):
+        print "set {} = {}".format(request.key, request.value)
         with self._lock:
             self._store[request.key] = request.value
             return kv_pb2.SetResponse(True)
@@ -38,6 +40,6 @@ if __name__ == "__main__":
 
     try:
         while True:
-            time.sleep(1)
+            time.sleep(60 * 60 * 24)
     except KeyboardInterrupt:
         server.exit(0)

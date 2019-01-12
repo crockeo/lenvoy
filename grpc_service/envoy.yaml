@@ -13,7 +13,7 @@ static_resources:
           route_config:
             name: local_route
             virtual_hosts:
-            - name: grpc_service
+            - name: local_service
               domains:
               - "*"
               routes:
@@ -21,20 +21,20 @@ static_resources:
                   prefix: "/"
                   grpc: {}
                 route:
-                  cluster: local_grpc_service
+                  cluster: local_service_grpc
           http_filters:
           - name: envoy.router
             config: {}
   clusters:
-  - name: local_grpc_service
+  - name: local_service_grpc
     connect_timeout: 0.25s
-    type: strict_dns
+    type: static
     lb_policy: round_robin
     http2_protocol_options: {}
     hosts:
     - socket_address:
         address: 127.0.0.1
-        port_value: 80
+        port_value: 8080
 admin:
   access_log_path: "/dev/null"
   address:
