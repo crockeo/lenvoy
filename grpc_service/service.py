@@ -25,6 +25,20 @@ class KeyValueStore(kv_pb2_grpc.KeyValueStoreServicer):
             self._store[request.key] = request.value
             return kv_pb2.SetResponse(success=True)
 
+    def has(self, request, context):
+        print "has {}".format(request.key)
+        with self._lock:
+            return kv_pb2.HasResponse(has=request.key in self._store)
+
+    def clear(self, request, context):
+        print "clear {}".format(request.key)
+        with self._lock:
+            if request.key in self._store:
+                del self._store[request.key]
+                return kv_pb2.ClearResponse(success=True)
+            else:
+                return kv_pb2.ClearResponse(success=False)
+
 if __name__ == "__main__":
     port = 8080
 

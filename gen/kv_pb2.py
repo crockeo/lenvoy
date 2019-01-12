@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x08kv.proto\"\x19\n\nGetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"-\n\x0bGetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\r\n\x05value\x18\x02 \x01(\t\"(\n\nSetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x1e\n\x0bSetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32W\n\rKeyValueStore\x12\"\n\x03get\x12\x0b.GetRequest\x1a\x0c.GetResponse\"\x00\x12\"\n\x03set\x12\x0b.SetRequest\x1a\x0c.SetResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x08kv.proto\"\x19\n\nGetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"-\n\x0bGetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\r\n\x05value\x18\x02 \x01(\t\"(\n\nSetRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x1e\n\x0bSetResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\"\x19\n\nHasRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\"\x1a\n\x0bHasResponse\x12\x0b\n\x03has\x18\x01 \x01(\x08\"\x1b\n\x0c\x43learRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\" \n\rClearResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\xa5\x01\n\rKeyValueStore\x12\"\n\x03get\x12\x0b.GetRequest\x1a\x0c.GetResponse\"\x00\x12\"\n\x03set\x12\x0b.SetRequest\x1a\x0c.SetResponse\"\x00\x12\"\n\x03has\x12\x0b.HasRequest\x1a\x0c.HasResponse\"\x00\x12(\n\x05\x63lear\x12\r.ClearRequest\x1a\x0e.ClearResponse\"\x00\x62\x06proto3')
 )
 
 
@@ -162,10 +162,138 @@ _SETRESPONSE = _descriptor.Descriptor(
   serialized_end=158,
 )
 
+
+_HASREQUEST = _descriptor.Descriptor(
+  name='HasRequest',
+  full_name='HasRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='HasRequest.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=160,
+  serialized_end=185,
+)
+
+
+_HASRESPONSE = _descriptor.Descriptor(
+  name='HasResponse',
+  full_name='HasResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='has', full_name='HasResponse.has', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=187,
+  serialized_end=213,
+)
+
+
+_CLEARREQUEST = _descriptor.Descriptor(
+  name='ClearRequest',
+  full_name='ClearRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='ClearRequest.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=215,
+  serialized_end=242,
+)
+
+
+_CLEARRESPONSE = _descriptor.Descriptor(
+  name='ClearResponse',
+  full_name='ClearResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='success', full_name='ClearResponse.success', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=244,
+  serialized_end=276,
+)
+
 DESCRIPTOR.message_types_by_name['GetRequest'] = _GETREQUEST
 DESCRIPTOR.message_types_by_name['GetResponse'] = _GETRESPONSE
 DESCRIPTOR.message_types_by_name['SetRequest'] = _SETREQUEST
 DESCRIPTOR.message_types_by_name['SetResponse'] = _SETRESPONSE
+DESCRIPTOR.message_types_by_name['HasRequest'] = _HASREQUEST
+DESCRIPTOR.message_types_by_name['HasResponse'] = _HASRESPONSE
+DESCRIPTOR.message_types_by_name['ClearRequest'] = _CLEARREQUEST
+DESCRIPTOR.message_types_by_name['ClearResponse'] = _CLEARRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetRequest = _reflection.GeneratedProtocolMessageType('GetRequest', (_message.Message,), dict(
@@ -196,6 +324,34 @@ SetResponse = _reflection.GeneratedProtocolMessageType('SetResponse', (_message.
   ))
 _sym_db.RegisterMessage(SetResponse)
 
+HasRequest = _reflection.GeneratedProtocolMessageType('HasRequest', (_message.Message,), dict(
+  DESCRIPTOR = _HASREQUEST,
+  __module__ = 'kv_pb2'
+  # @@protoc_insertion_point(class_scope:HasRequest)
+  ))
+_sym_db.RegisterMessage(HasRequest)
+
+HasResponse = _reflection.GeneratedProtocolMessageType('HasResponse', (_message.Message,), dict(
+  DESCRIPTOR = _HASRESPONSE,
+  __module__ = 'kv_pb2'
+  # @@protoc_insertion_point(class_scope:HasResponse)
+  ))
+_sym_db.RegisterMessage(HasResponse)
+
+ClearRequest = _reflection.GeneratedProtocolMessageType('ClearRequest', (_message.Message,), dict(
+  DESCRIPTOR = _CLEARREQUEST,
+  __module__ = 'kv_pb2'
+  # @@protoc_insertion_point(class_scope:ClearRequest)
+  ))
+_sym_db.RegisterMessage(ClearRequest)
+
+ClearResponse = _reflection.GeneratedProtocolMessageType('ClearResponse', (_message.Message,), dict(
+  DESCRIPTOR = _CLEARRESPONSE,
+  __module__ = 'kv_pb2'
+  # @@protoc_insertion_point(class_scope:ClearResponse)
+  ))
+_sym_db.RegisterMessage(ClearResponse)
+
 
 
 _KEYVALUESTORE = _descriptor.ServiceDescriptor(
@@ -204,8 +360,8 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=160,
-  serialized_end=247,
+  serialized_start=279,
+  serialized_end=444,
   methods=[
   _descriptor.MethodDescriptor(
     name='get',
@@ -223,6 +379,24 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_SETREQUEST,
     output_type=_SETRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='has',
+    full_name='KeyValueStore.has',
+    index=2,
+    containing_service=None,
+    input_type=_HASREQUEST,
+    output_type=_HASRESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='clear',
+    full_name='KeyValueStore.clear',
+    index=3,
+    containing_service=None,
+    input_type=_CLEARREQUEST,
+    output_type=_CLEARRESPONSE,
     serialized_options=None,
   ),
 ])

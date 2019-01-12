@@ -24,6 +24,16 @@ class KeyValueStoreStub(object):
         request_serializer=kv__pb2.SetRequest.SerializeToString,
         response_deserializer=kv__pb2.SetResponse.FromString,
         )
+    self.has = channel.unary_unary(
+        '/KeyValueStore/has',
+        request_serializer=kv__pb2.HasRequest.SerializeToString,
+        response_deserializer=kv__pb2.HasResponse.FromString,
+        )
+    self.clear = channel.unary_unary(
+        '/KeyValueStore/clear',
+        request_serializer=kv__pb2.ClearRequest.SerializeToString,
+        response_deserializer=kv__pb2.ClearResponse.FromString,
+        )
 
 
 class KeyValueStoreServicer(object):
@@ -44,6 +54,20 @@ class KeyValueStoreServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def has(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
+  def clear(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_KeyValueStoreServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -56,6 +80,16 @@ def add_KeyValueStoreServicer_to_server(servicer, server):
           servicer.set,
           request_deserializer=kv__pb2.SetRequest.FromString,
           response_serializer=kv__pb2.SetResponse.SerializeToString,
+      ),
+      'has': grpc.unary_unary_rpc_method_handler(
+          servicer.has,
+          request_deserializer=kv__pb2.HasRequest.FromString,
+          response_serializer=kv__pb2.HasResponse.SerializeToString,
+      ),
+      'clear': grpc.unary_unary_rpc_method_handler(
+          servicer.clear,
+          request_deserializer=kv__pb2.ClearRequest.FromString,
+          response_serializer=kv__pb2.ClearResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

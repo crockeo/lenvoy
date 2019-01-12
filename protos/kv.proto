@@ -18,7 +18,25 @@ message SetResponse {
   bool success = 1;
 }
 
+message HasRequest {
+  string key = 1;
+}
+
+message HasResponse {
+  bool has = 1;
+}
+
+message ClearRequest {
+  string key = 1;
+}
+
+message ClearResponse {
+  bool success = 1;
+}
+
 service KeyValueStore {
   rpc get(GetRequest) returns (GetResponse) {};
   rpc set(SetRequest) returns (SetResponse) {};
+  rpc has(HasRequest) returns (HasResponse) {};
+  rpc clear(ClearRequest) returns (ClearResponse) {};
 }

@@ -11,8 +11,23 @@ app = flask.Flask(__name__)
 HOST = "grpc_service:80"
 
 class KeyValueClient():
-    def __init__(self, stub):
-        self._stub = stub
+    def __init__(self, stub=None):
+        if stub is None:
+            self._channel = grpc.insecure_channel(HOST)
+            self._stub = kv_pb2_grpc.KeyValueStoreStub(self._channel)
+            self._owns = True
+        else:
+            self._stub = stub
+            self._owns = False
+
+    def __enter__(self):
+        if self._owns:
+            self._channel.__enter__()
+        return self
+
+    def __exit__(self, type, value, tb):
+        if self._owns:
+            self._channel.__exit__(type, value, tb)
 
     def get(self, key):
         req = kv_pb2.GetRequest(key=key)
@@ -22,12 +37,29 @@ class KeyValueClient():
         req = kv_pb2.SetRequest(key=key, value=value)
         return self._stub.set(req)
 
+    def has(self, key):
+        req = kv_pb2.HasRequest(key=key)
+        return self._stub.has(req)
+
+    def clear(self, key):
+        req = kv_pb2.ClearRequest(key=key)
+        return self._stub.clear(req)
+
+@app.route("/clear/<key>", methods=["POST"])
+def clear(key):
+    with KeyValueClient() as client:
+        res = client.clear(key)
+    return flask.jsonify({ "success": res.success })
+
+@app.route("/has/<key>", methods=["GET"])
+def has(key):
+    with KeyValueClient() as client:
+        res = client.has(key)
+    return flask.jsonify({ "has": res.has })
+
 @app.route("/")
 def root():
-    with grpc.insecure_channel(HOST) as channel:
-        stub = kv_pb2_grpc.KeyValueStoreStub(channel)
-        client = KeyValueClient(stub)
-
+    with KeyValueClient() as client:
         value_raw = client.get("count")
         if value_raw.success:
             value = int(value_raw.value)
