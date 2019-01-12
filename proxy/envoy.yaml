@@ -21,10 +21,6 @@ static_resources:
                   prefix: "/"
                 route:
                   cluster: service
-              - match:
-                  prefix: "/grpc"
-                route:
-                  cluster: "grpc_service"
           http_filters:
           - name: envoy.router
             config: {}
@@ -37,15 +33,6 @@ static_resources:
     hosts:
     - socket_address:
         address: service
-        port_value: 80
-  - name: grpc_service
-    connect_timeout: 0.25s
-    type: strict_dns
-    lb_policy: round_robin
-    http2_protocol_options: {}
-    hosts:
-    - socket_address:
-        address: grpc_service
         port_value: 80
 admin:
   access_log_path: "/dev/null"
